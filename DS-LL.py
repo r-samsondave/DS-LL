@@ -94,7 +94,8 @@ class LinkedList:
     def insert(self, index, value):
         new_node = Node(value)
 
-        if index < 0 or index >= self.length:
+
+        if index < 0 or index > self.length:
             return
 
         if self.head is None:
@@ -124,22 +125,69 @@ class LinkedList:
 
         return
 
+    def set(self, index, value):
+        if index < 0 or index >= self.length:
+            return
+
+        temp = self.head
+
+        for _ in range(index):
+            temp = temp.next
+        temp.value = value
+
+        return
+
+    def remove(self, index):
+        if index < 0 or index >= self.length:
+            return None
+
+        if index == 0:
+            return self.pop_first()
+
+        if index == self.length - 1:
+            return self.pop()
+
+        temp = self.head
+        pre = None
+
+        for _ in range(index):
+            pre = temp
+            temp = temp.next
+
+        pre.next = temp.next
+        temp.next = None
+        self.length -= 1
+
+        return temp
 
 
+    def reverse(self):
+
+        prev = None
+        save_head = self.head
+        current = self.head
 
 
+        while current is not None:
+            nextt = current.next
 
-# Nodes
+            current.next = prev
+            prev = current
+            current = nextt
+
+        self.tail = save_head
+        self.head = prev
 
 # LinkedList
 ll = LinkedList()
 
 # Chain
+ll.append(1)
+ll.append(5)
+ll.append(3)
+ll.append(2)
 
-neww = ll.get(1)
-
-
-
+ll.reverse()
 
 current = ll.head
 
